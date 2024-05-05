@@ -5,23 +5,6 @@
 #include <sstream>
 using namespace std;
 
-void vietHoa(string &str)
-{
-    for(int i = 0; i < str.size(); i++)
-    {
-        str[i] = toupper(str[i]);
-    }
-}
-
-void chuanHoa(string &str)
-{
-    str[0] = toupper(str[0]);
-    for(int i = 1; i < str.size(); i++)
-    {
-        str[i] = tolower(str[i]);
-    }
-}
-
 int main()
 {
     string str;
@@ -38,3 +21,35 @@ int main()
     
     return 0;
 }
+
+/*
+#include <iostream>
+#include <string>
+#include <vector>
+#include <set>
+#include <sstream>
+using namespace std;
+
+int main()
+{
+    string str;
+    cin >> str;
+    
+    int a[25] = {0};
+    for(char x : str)
+    {
+        a[x - 'a'] = 1;
+    }
+    
+    for(int i = 0; i < 26; i++)
+    {
+        if(!a[i])
+        {
+            cout << "NO";
+            return 0;
+        }
+    }
+    cout << "YES";
+    return 0;
+}
+*/
