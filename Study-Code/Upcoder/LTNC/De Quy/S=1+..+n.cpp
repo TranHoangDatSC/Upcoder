@@ -8,8 +8,8 @@ typedef unsigned long long ull;
 
 int tong(int n)
 {
-    if(n == 1)
-        return 1;
+    if(n == 0)
+        return 0;
     else 
         return n + tong(n - 1);
 }
