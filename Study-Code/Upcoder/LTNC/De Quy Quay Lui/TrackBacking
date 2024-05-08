@@ -7,7 +7,7 @@ Try(int i)
     {
         if(<chấp nhận khả năng j>)
         {
-            X[i] = <khả nặng>;
+            X[i] = <khả năng j>;
             if(i == n)
             {
                 <Thông báo cấu hình tìm được>
