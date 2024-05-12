@@ -28,3 +28,11 @@ int main()
     }
     return 0;
 }
+
+/*
+Input:
+2 ABCEABC ADEDEF
+Output:   
+E 
+AF
+*/
