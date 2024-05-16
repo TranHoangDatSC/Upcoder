@@ -1,11 +1,11 @@
 #include <iostream>
 #include <cmath>
-
+//1. Sử dụng hàm đệ quy
 using namespace std;
 
 int tong(int n)
 {
-    if(n == 1) return 1;
+    if(n == 0) return 0;
     else return pow(n,2) + tong(n - 1);
 }
 
