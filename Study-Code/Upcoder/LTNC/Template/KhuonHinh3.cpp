@@ -18,7 +18,7 @@ struct PhanSo
     
     bool operator < (PhanSo other)
     {
-        return ((double)this->tu/this->mau<(double)other.tu/other.mau);
+        return ((double)this->tu/this->mau < (double)other.tu/other.mau);
     }
         
 };
