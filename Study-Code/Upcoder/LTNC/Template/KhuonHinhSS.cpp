@@ -3,66 +3,60 @@ using namespace std;
 
 struct PhanSo
 {
-	int tu, mau;
-	
-	friend istream& operator >> (istream& is, PhanSo& p)
-	{
-		is >> p.tu >> p.mau;
-		return is;
-	}
-	friend ostream& operator << (ostream& os, PhanSo p)
-	{
-		os << p.tu << "/" << p.tu;
-		return os;
-	}
-
-	bool operator == (PhanSo p)
-	{
-		return (this->tu * p.mau == p.tu * this->mau);
-	}
+    int tu,mau;
+    
+    friend istream& operator >> (istream& is, PhanSo& ps)
+    {
+        is >> ps.tu >> ps.mau;
+        return is;
+    }
+    friend ostream& operator << (ostream& os, PhanSo ps)
+    {
+        os << ps.tu << "\n" << ps.mau;
+        return os;
+    }
+    bool operator == (PhanSo other)
+    {
+        return this->tu * other.mau == this->mau * other.tu;
+    }
 };
 
 template<typename T>
-bool Test(T a, T b)
+void solve(T a, T b)
 {
-	return a == b;
+    if(a == b) cout << "true";
+    else cout << "false";
 }
 
 int main()
 {
-	char type;
-	cin >> type;
-	switch (type)
-	{
-		case 'a':
-		{
-			int a, b;
-        	cin >> a >> b;
-        	if (Test(a, b) == true)
-        		cout << "true";
-        	else
-        		cout << "false";
-			break;
-		}
-		case 'b':
-			float a, b;
-        	cin >> a >> b;
-        	if (Test(a, b) == true)
-        		cout << "true";
-        	else
-        		cout << "false";
-			break;
-		case 'c':
-		{
-			PhanSo a, b;
-        	cin >> a >> b;
-        	if (Test(a, b) == true)
-        		cout << "true";
-        	else
-        		cout << "false";
-			break;
-		}
-		default: "khong co";
-	}
-	return 0;
+    char type;
+    cin >> type;
+    
+    switch(type)
+    {
+        case 'a':
+        {
+            int a,b;
+            cin >> a >> b;
+            solve(a,b);
+            break;
+        }
+        case 'b': 
+        {
+            float a,b;
+            cin >> a >> b;
+            solve(a,b);
+            break;
+        }
+        case 'c':
+        {
+            PhanSo a,b;
+            cin >> a >> b;
+            solve(a,b);
+            break;
+        }
+        default: "khong co";
+    }
+    return 0;
 }
