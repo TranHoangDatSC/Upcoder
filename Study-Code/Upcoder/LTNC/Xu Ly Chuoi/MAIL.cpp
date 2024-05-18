@@ -37,3 +37,25 @@ int main()
     }
     return 0;
 }
+/*
+#include <string>
+#include <vector>
+#include <sstream>
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    string str;
+    
+    while(cin >> str)
+    {
+        int pos = str.find("@gmail.com");
+        
+        if(pos != string::npos) 
+            cout << str << "\n";
+    }
+    
+    return 0;
+}
+*/
