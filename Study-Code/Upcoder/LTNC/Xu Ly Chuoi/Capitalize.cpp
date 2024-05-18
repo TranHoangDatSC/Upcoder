@@ -37,3 +37,27 @@ int main()
     }
     return 0;
 }
+
+/*
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <vector>
+using namespace std;
+
+int main()
+{
+    string name;
+    
+    while(cin >> name)
+    {
+        name[0] = toupper(name[0]);
+        for(int i = 1; i < name.size(); i++)
+        {
+            name[i] = tolower(name[i]);
+        }
+        cout << name << " ";
+    }
+    return 0;
+}
+*/
