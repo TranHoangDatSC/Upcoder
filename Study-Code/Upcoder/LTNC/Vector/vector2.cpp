@@ -1,5 +1,60 @@
 #include <iostream>
 #include <string>
+#include <sstream>
+#include <vector>
+using namespace std;
+
+int main()
+{
+    string str;
+    getline(cin,str);
+    
+    stringstream ss(str);
+    vector<int> del;
+    vector<int> vt;
+    int tmp;
+    while(ss >> tmp)
+    {
+        del.push_back(tmp);
+    }
+    
+    if(str.size() < 3)
+    {
+        int a = del[0];
+        
+        int n;
+        
+        while(cin >> n)
+            vt.push_back(n);
+        
+        if(a == -1) 
+            vt.clear();
+        else 
+            vt.erase(vt.begin() + a);
+    }
+    else
+    {
+        int a = del[0];
+        int b = del[2];
+        
+        int n;
+        while(cin >> n)
+            vt.push_back(n);
+            
+        vt.erase(vt.begin() + a, vt.end() + b - 1);
+    }
+    
+    if(!vt.empty())
+        for(auto x : vt)
+            cout << x << " ";
+            
+    else
+        cout << "empty";
+    return 0;
+}
+/*
+#include <iostream>
+#include <string>
 #include <vector>
 
 using namespace std;
@@ -50,3 +105,4 @@ int main()
 
     return 0;
 }
+*/
