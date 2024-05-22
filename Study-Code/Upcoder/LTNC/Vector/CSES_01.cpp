@@ -36,29 +36,40 @@ int main() {
 
 
 /*
-#include <bits/stdc++.h>
+#include <iostream>
+#include <set>
 using namespace std;
 
-int main() {
-    int n, k, a, i = 0; 
+int main()
+{
+    int n, k;
+    bool check = true;
     cin >> n >> k;
+    
     multiset<int> arr;
-    while (i++ < n) 
+    int x;
+    while(n--)
     {
-        cin >> a; 
-        arr.insert(a);
-    }
-    for (auto x : arr) 
+        cin >> x;
+        arr.insert(x);
+    }   
+    
+    for(auto &a : arr)
     {
-        int tmp = x; 
-        arr.erase(arr.find(x));
-        if (arr.count(k-tmp) != 0) 
+        int tmp = a;
+        arr.erase(arr.find(a));
+        
+        if(arr.count(k - tmp) != 0)
         {
-            cout << tmp << " " << k-tmp;
-            return 0;
+            cout << tmp << " " << k - tmp;
+            check = false;
+            break;
         }
     }
-    cout << -1;
+    
+    if(check)
+        cout << -1;
+        
     return 0;
 }
 */
