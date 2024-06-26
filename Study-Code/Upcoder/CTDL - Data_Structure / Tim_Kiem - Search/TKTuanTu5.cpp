@@ -1,39 +1,41 @@
 #include <iostream>
-#include <vector>
 #include <cmath>
 using namespace std;
 
-int main()
+int linear_search(int arr[],int target,int n,int max_diff)
 {
-    int n, x ,y;
-    cin >> n >> x >> y;
-    
-    int arr[100];
-    for(int i = 0 ; i < n; i++)
-    {
-        cin >> arr[i];
-    }
-    
     int index = -1;
-    int lech_min = y + 1;  // khoi tao min_deviation
-    
-    for(int i = 0 ; i < n; i++)
+    int min_diff = max_diff + 1;
+    for(int i = 0; i < n; i++)
     {
-        if(arr[i] == x)
-        {
-            cout << i;
-            return 0;
-        }
+        int diff = abs(arr[i] - target);
         
-        int lech = abs(arr[i] - x);
-
-        if(lech < lech_min && lech <= y)
+        if(diff <= max_diff && diff < min_diff)
         {
-            lech_min = lech;
+            min_diff = diff;
             index = i;
         }
+        
+        if(arr[i] == target)
+        {
+            index = i;
+            break;
+        }
     }
+    return index;
+}
+
+int main()
+{
+    int n, target, diff;
+    cin >> n >> target >> diff;
+    int arr[n];
     
-    cout << index;
+    for(auto &x : arr)
+        cin >> x;
+        
+    int res = linear_search(arr,target,n,diff);
+    cout << res;
+    
     return 0;
 }
