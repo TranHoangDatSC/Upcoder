@@ -17,7 +17,7 @@ int main()
         cin >> x >> y;
         
         adj[x].push_back(y);
-        adj[y].push_back(x);
+        adj[y].push_back(x); // Co vector thi bo
     }
     memset(visited,false,sizeof(visited));
 
