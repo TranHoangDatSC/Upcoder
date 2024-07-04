@@ -1,6 +1,9 @@
 #include <iostream>
 using namespace std;
 
+void input(int arr[],int n);
+void output(int arr[],int n);
+
 void bubble_sort(int arr[], int n);
 // Thuật toán sắp xếp nổi bọt, tr/hợp: Bé -> Lớn
 
@@ -10,18 +13,28 @@ int main()
     cin >> n;
     
     int arr[n];
+    input(arr,n);
+    
+    bubble_sort(arr,n);
+
+    output(arr,n);
+    
+    return 0;
+}
+
+void input(int arr[],int n)
+{
     for(int i = 0; i < n; i++)
     {
         cin >> arr[i];
     }
-    
-    bubble_sort(arr,n);
-    for(int x : arr)
+}
+void output(int arr[], int n)
+{
+    for(int i = 0; i < n; i++)
     {
-        cout << x << " ";
+        cout << arr[i] << " ";
     }
-    
-    return 0;
 }
 
 void bubble_sort(int arr[], int n)
