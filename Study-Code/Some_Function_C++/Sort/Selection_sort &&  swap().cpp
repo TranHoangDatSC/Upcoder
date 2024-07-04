@@ -2,6 +2,9 @@
 using namespace std;
 
 void swap_num(int &a,int &b);
+void input(int arr[], int n);
+void print_res(int arr[], int n);
+
 void selection_sort(int arr[], int n);
 // Sắp xếp lựa chọn && swap()
 
@@ -9,18 +12,14 @@ int main()
 {
     int n;
     cin >> n;
-    
     int arr[n];
-    for(int i = 0; i < n; i++)
-    {
-        cin >> arr[i];
-    }
+    
+    input(arr,n);
+    
     selection_sort(arr,n);
     
-    for(int x : arr)
-    {
-        cout << x << " ";
-    }
+    print_res(arr,n);
+    
     return 0;
 }
 
@@ -29,6 +28,21 @@ void swap_num(int &a, int &b)
     int tmp = a;
     a = b;
     b = tmp;
+}
+
+void input(int arr[], int n)
+{
+    for(int i = 0; i < n; i++)
+    {
+        cin >> arr[i];
+    }
+}
+void print_res(int arr[], int n)
+{
+    for(int i = 0; i < n; i++)
+    {
+        cout << arr[i] << " ";
+    }
 }
 
 void selection_sort(int arr[], int n)
