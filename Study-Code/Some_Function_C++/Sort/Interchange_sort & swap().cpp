@@ -22,7 +22,7 @@ int main()
     while(cin >> arr[size])
         size++;
         
-    selection_sort(arr,size);
+    Interchange_sort(arr,size);
     
     for(int i = 0; i < size; i++)
         cout << arr[i] << " ";
