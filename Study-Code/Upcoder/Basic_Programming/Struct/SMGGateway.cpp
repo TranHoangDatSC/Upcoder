@@ -1,54 +1,66 @@
 #include <iostream>
 #include <string>
-#define endl '\n'
 using namespace std;
 
 struct SMG {
-    string maSo;
-    string soDienThoai;
-    string nhaMang;
+    string id, phone, home_network;
+    
+    void nhap_SMG() {
+        cin >> id >> phone >> home_network;
+    }
+    void xuat_SMG() {
+        cout << id << ":" << phone << ":" << home_network << "\n";
+    }
 };
-
-struct QuanLiSMG {
+struct Gateway {
+    SMG smg[10];
+    string target;
     int size;
-    SMG arr[100];
-
-    void nhap() {
-        cin >> size;
-        for (int i = 0; i < size; i++)
-            cin >> arr[i].maSo >> arr[i].soDienThoai >> arr[i].nhaMang;
-        return;
-    }
-
-    void xuat() {
-        for (int i = 0; i < size; i++) {
-            cout << arr[i].maSo << ":";
-            cout << arr[i].soDienThoai << ":";
-            cout << arr[i].nhaMang << endl;
+    
+    void operator = (Gateway gw) {
+        size = gw.size;
+        target = gw.target;
+        
+        for(int i = 0; i < gw.size; i++) {
+            smg[i] = gw.smg[i];
         }
-        return;
     }
-
-    void timKiem(string sdt) {
-        for (int i = 0; i < size; i++) {
-            string soDauList = arr[i].soDienThoai.substr(0, 3);
-            string soDauUser = sdt.substr(0, 3);
-            if (soDauList == soDauUser) {
-                cout << arr[i].maSo << ":";
-                cout << arr[i].soDienThoai << ":";
-                cout << arr[i].nhaMang << endl;
+    SMG& operator[](int index) {
+        return smg[index];
+    }
+    
+    friend istream& operator >> (istream& is, Gateway& gw) {
+        is >> gw.size;
+        for(int i = 0; i < gw.size; i++) {
+            gw.smg[i].nhap_SMG();
+        }
+        is >> gw.target;
+        return is;
+    }
+    friend ostream& operator << (ostream& os, Gateway gw) {
+        for(int i = 0; i < gw.size; i++) {
+            string Num = gw.smg[i].phone.substr(0,3);
+            string User = gw.target.substr(0,3);
+            if(User == Num) {
+                gw.smg[i].xuat_SMG();
             }
         }
+        return os;
     }
 };
 
-int main() {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
+void nhap(Gateway &gw) {
+    cin >> gw;
+}
 
-    QuanLiSMG list;
-    list.nhap();
-    string sdt; cin >> sdt;
-    list.timKiem(sdt);
+void xuat(Gateway &gw) {
+    cout << gw;
+}
+int main() {
+    Gateway gw;
+    
+    nhap(gw);
+    xuat(gw);
+    
     return 0;
 }
