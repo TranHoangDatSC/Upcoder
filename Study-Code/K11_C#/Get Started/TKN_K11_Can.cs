@@ -6,7 +6,7 @@ namespace Practice_C_Sharp
     {
         public static void Main(string[] args)
         {
-            double a = Convert.ToInt32(Console.ReadLine());
+            double a = Convert.ToDouble(Console.ReadLine());
 
             double result = Math.Sqrt(a + Math.Sqrt(a + Math.Sqrt(a)));
 
