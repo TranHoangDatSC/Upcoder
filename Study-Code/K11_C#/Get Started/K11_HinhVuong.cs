@@ -8,7 +8,7 @@ namespace Practice_C_Sharp
         {
             double a = Convert.ToInt32(Console.ReadLine());
 
-            if (a < 0) { Console.Write("NHAPSAI"); }
+            if (a < 0) { Console.Write("NHAP SAI"); }
 
             else { Console.WriteLine(Math.Sqrt(a)); }
         }
