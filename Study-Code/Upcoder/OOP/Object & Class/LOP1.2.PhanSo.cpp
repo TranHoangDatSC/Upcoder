@@ -1,115 +1,103 @@
 #include <iostream>
- 
-class Fraction
-{
-    private:
-        int Numerator, Denominator;
+using namespace std;
+
+class PhanSo {
+    private: 
+        int tu,mau;
+        
     public:
-        friend std::istream& operator >> (std::istream& in, Fraction& p);
-        friend std::ostream& operator << (std::ostream& out, Fraction p);
+            
+        int gcd(int a,int b) {
+            if(b == 0) return a;
+            return gcd(b,a%b);
+        }
+    
+        // Nhập, xuất.
+        friend istream& operator >> (istream& is, PhanSo& ps);
+        friend ostream& operator << (ostream& os, PhanSo ps);
         
-        void set_Tu(int k) { Numerator = k;}
-        void set_Mau(int k) { Denominator = k;}
-        int get_Tu() { return Numerator; }
-        int get_Mau() { return Denominator; }
-
-        void Out_N_D();
-        void Reciprocal();
-        void Simplify();
-        void Addition();
+        // Lấy tử số, mẫu số.
+        void setTu(int k) { tu = k; }
+        void setMau(int k) { mau = k; }
+        int getTu() { return this->tu; }
+        int getMau() { return this->mau; }
         
-        Fraction();
+        // Gán giá trị cho tử số, mẫu số.
+      
+        PhanSo() : tu(0), mau(1) {}
+        PhanSo(int _tu, int _mau) : tu(_tu), mau(_mau) { 
+            RutGon(); 
+        }
         
-        Fraction(int Numerator, int Denominator);
-        Fraction(int n);
-        Fraction(const Fraction& p);
+        PhanSo(int n) : tu(n), mau(n) {}
+        PhanSo(const PhanSo& ps) : tu(ps.tu), mau(ps.mau) {}
         
-        ~Fraction(){};
+        // Nghịch đảo, rút gọn.
+        void NghichDao();
+        void RutGon();
+        
+        // Cộng, trừ, nhân, chia, so sánh với phân số khác.
+        
+        void Cong(); 
+        void Tru();
+        void Nhan();
+        void Chia();
+            
 };
-
-int Find_GCD(int a, int b);
-
-int main()
-{
-    Fraction p1,p2;
-    std::cin >> p1 >> p2;
-    std::cout << p1;
-    std::cout << "\n";
-    p1.Out_N_D();
-    p1.Reciprocal();
-    p1.Simplify();
-    p1.Addition();
+int main() {
+    PhanSo a,b;
+    cin >> a >> b;
+    cout << a << "\n";
+    cout << a.getTu() << "\n" << a.getMau() << "\n";
+    a.NghichDao(); 
+    a.RutGon(); 
+    a.Cong();
+    
     return 0;
 }
 
-std::istream& operator >> (std::istream& in, Fraction& p)
-{
-    in >> p.Numerator >> p.Denominator;
-    return in;
+istream& operator >> (istream& is, PhanSo& ps) {
+    is >> ps.tu >> ps.mau; 
+    return is;
 }
-std::ostream& operator << (std::ostream& out, Fraction p)
-{
-    out << p.Numerator << "/" << p.Denominator;
-    return out;
+ostream& operator << (ostream& os, PhanSo ps) {
+    os << ps.tu << "/" << ps.mau;
+    return os;
 }
 
-void Fraction::Out_N_D()
-{
-    std::cout << Numerator << "\n" << Denominator << "\n";
-}
-
-void Fraction::Reciprocal()
-{
-    std::cout << Denominator << "/" << Numerator << "\n";
-}
-
-int Find_GCD(int a, int b)
-{
-    if(b==0) 
-        return a;
-    return Find_GCD(b, a % b);
-}
-
-void Fraction::Simplify()
-{
-    if (Numerator != 0)
-    {
-        int result = Find_GCD(Numerator, Denominator);
-        Numerator /= result;
-        Denominator /= result;
+void PhanSo::RutGon() {
+    if(tu != 0) {
+        int d = gcd(tu,mau);
+        tu /= d;
+        mau /= d;
     }
-    std::cout << Numerator << "/" << Denominator << "\n";
+    cout << tu << "/" << mau << "\n";
+}
+void PhanSo::NghichDao() {
+    cout << mau << "/" << tu << "\n";
 }
 
-void Fraction::Addition()
-{
+void PhanSo::Cong() {
     int a,b;
-    a = Numerator * Numerator + Denominator * Denominator;
-    b = Denominator * Numerator;
-    std::cout << a << "/" << b ;
+    a = tu * tu + mau * mau;
+    b = mau * tu;
+    cout << a << "/" << b;
 }
-
-Fraction::Fraction()
-{
-    Numerator = 0;
-    Denominator = 1;
+void PhanSo::Tru() {
+    int a,b;
+    a = tu * tu - mau * mau;
+    b = mau * tu;
+    cout << a << "/" << b;
 }
-
-Fraction::Fraction(int num, int deno)
-{
-    Numerator = num;
-    Denominator = deno;
+void PhanSo::Nhan() {
+    int a,b;
+    a = tu * tu;
+    b = mau * mau;
+    cout << a << "/" << b;
 }
-
-Fraction::Fraction(int n)
-{
-    Numerator = n;
-    Denominator = 1;
+void PhanSo::Chia() {
+    int a,b;
+    a = tu * mau;
+    b = mau * tu;
+    cout << a << "/" << b;
 }
-
-Fraction::Fraction(const Fraction& p)
-{
-    Numerator = p.Numerator;
-    Denominator = p.Denominator;
-}
-
