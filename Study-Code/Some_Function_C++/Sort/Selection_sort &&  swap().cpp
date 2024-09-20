@@ -1,61 +1,60 @@
 #include <iostream>
 using namespace std;
 
-void swap_num(int &a,int &b);
-void input(int arr[], int n);
-void print_res(int arr[], int n);
+struct Diem {
+    int diem;  
+    
+    friend istream& operator >> (istream& is, Diem& d) {
+        is >> d.diem;
+        return is;
+    }
+    
+    friend ostream& operator << (ostream& os, Diem d) {
+        cout << d.diem;
+        return os;
+    }
+    
+    bool operator < (Diem other) {
+        return this->diem < other.diem;
+    }
+};
 
-void selection_sort(int arr[], int n);
-// Sắp xếp lựa chọn && swap()
-
-int main()
-{
-    int n;
-    cin >> n;
-    int arr[n];
-    
-    input(arr,n);
-    
-    selection_sort(arr,n);
-    
-    print_res(arr,n);
-    
-    return 0;
-}
-
-void swap_num(int &a, int &b)
-{
-    int tmp = a;
+void swap(Diem &a,Diem &b) {
+    Diem tmp = a;
     a = b;
     b = tmp;
 }
 
-void input(int arr[], int n)
-{
-    for(int i = 0; i < n; i++)
-    {
-        cin >> arr[i];
-    }
-}
-void print_res(int arr[], int n)
-{
-    for(int i = 0; i < n; i++)
-    {
-        cout << arr[i] << " ";
+template <class Diem>
+void selection_sort(Diem a[],int n) {
+    int min;
+    
+    for(int i = 0; i < n - 1; i++) {
+        min = i;
+        for(int j = i + 1; j < n; j++) {
+            if(a[j] < a[min]) min = j;
+        }
+        if(min != i)
+            swap(a[min],a[i]);
     }
 }
 
-void selection_sort(int arr[], int n)
-{
-    int min_idx;
-    for(int i = 0; i < n - 1; i++)
-    {
-        min_idx = i;
-        for(int j = i + 1; j < n; j++)
-        {
-            if(arr[j] < arr[min_idx]) // Có thể thay đổi thành ">" nếu muốn ngược lại
-                min_idx = j;
-        }
-        swap_num(arr[min_idx],arr[i]);
-    }
+int main() {
+    Diem a[100];
+    int n = 0;
+    
+    while(cin >> a[n]) n++;
+    
+    selection_sort(a,n);
+    
+    for(int i = 0; i < n; i ++) cout << a[i] << " ";
+    
+    return 0;
 }
+
+/*
+input
+2 1 3 0
+output
+0 1 2 3
+*/
