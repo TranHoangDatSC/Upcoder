@@ -52,3 +52,57 @@ void bubble_sort(int arr[], int n)
         }
     }
 }
+
+/*
+#include <iostream>
+using namespace std;
+
+struct Diem {
+    int diem;  
+    
+    friend istream& operator >> (istream& is, Diem& d) {
+        is >> d.diem;
+        return is;
+    }
+    
+    friend ostream& operator << (ostream& os, Diem d) {
+        cout << d.diem;
+        return os;
+    }
+    
+    bool operator < (Diem other) {
+        return this->diem < other.diem;
+    }
+};
+
+void swap(Diem &a,Diem &b) {
+    Diem tmp = a;
+    a = b;
+    b = tmp;
+}
+
+template <class Diem>
+void bubble_sort(Diem a[],int n) {
+    int i,j;
+    
+    for(i = 0; i < n - 1; i++) {
+        for(j = n - 1; j > i; j--) {
+            if(a[j] < a[j-1])
+                swap(a[j],a[j-1]);
+        }
+    }
+}
+
+int main() {
+    Diem a[100];
+    int n = 0;
+    
+    while(cin >> a[n]) n++;
+    
+    bubble_sort(a,n);
+    
+    for(int i = 0; i < n; i ++) cout << a[i] << " ";
+    
+    return 0;
+}
+*/
