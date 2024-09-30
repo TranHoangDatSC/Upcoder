@@ -35,10 +35,11 @@ void readGraph(Graph& g, string fn) {
         f.close();
     }
     else {
-        cout << "Khong mo duoc file input!";
+        cout << "Khong mo duoc file input!" << endl;
     }
 }
-Edge findMinEdge(const vector<Edge>& e) {
+
+Edge findMinEdge(vector<Edge>& e) {
     if (e.empty()) {
         return { -1, -1, INT_MAX };
     }
@@ -77,7 +78,7 @@ void Prim(Graph& g) {
     }
 }
 
-Edge findMaxEdge(const vector<Edge>& e) {
+Edge findMaxEdge(vector<Edge>& e) {
     Edge maxEdge = e[0];
     for (int i = 1; i < e.size(); i++) {
         if (maxEdge.w < e[i].w) {
@@ -87,21 +88,21 @@ Edge findMaxEdge(const vector<Edge>& e) {
     return maxEdge;
 }
 
-int SumT(const vector<Edge>& e) {
+int SumT(vector<Edge>& e) {
     int totalW = 0;
-    for (const auto& edge : e) {
+    for (auto& edge : e) {
         totalW += edge.w;
     }
     return totalW;
 }
 
-void Edges_in_Graph(const vector<Edge>& e, ostream& os) {
-    for (const auto& edge : e) {
+void Edges_in_Graph(vector<Edge>& e, ostream& os) {
+    for (auto& edge : e) {
         os << "(" << edge.u + 1 << "," << edge.v + 1 << ") : " << edge.w << "\n";
     }
 }
 
-void Max_Min_Edge(const vector<Edge>& e, ostream& os) {
+void Max_Min_Edge(vector<Edge>& e, ostream& os) {
     Edge maxEdge = findMaxEdge(e);
     Edge minEdge = findMinEdge(e);
 
@@ -109,13 +110,13 @@ void Max_Min_Edge(const vector<Edge>& e, ostream& os) {
     os << "Canh lon nhat: (" << maxEdge.u + 1 << "," << maxEdge.v + 1 << ") \n";
 }
 
-void drawGraph(const Graph& g, ostream& os) {
+void drawGraph(Graph& g, ostream& os) {
     os << "Do thi cay khung nho nhat co ma tran la:\n";
     vector<vector<int>> spanningMatrix(g.sodinh, vector<int>(g.sodinh, 0));
 
-    for (const auto& edge : g.T) {
+    for (auto& edge : g.T) {
         spanningMatrix[edge.u][edge.v] = edge.w;
-        spanningMatrix[edge.v][edge.u] = edge.w; 
+        spanningMatrix[edge.v][edge.u] = edge.w; // Đồ thị vô hướng
     }
 
     for (int i = 0; i < g.sodinh; i++) {
@@ -136,10 +137,11 @@ void printSpanningTree(Graph& g, string fn) {
         Edges_in_Graph(g.T, os);
         Max_Min_Edge(g.T, os);
         drawGraph(g, os);
+
         os.close();
     }
     else {
-        cout << "Khong mo duoc file output!";
+        cout << "Khong mo duoc file output!" << endl;
     }
 }
 
