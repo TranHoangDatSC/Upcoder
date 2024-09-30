@@ -2,6 +2,7 @@
 #include <vector>
 #include <fstream>
 #include <map>
+#include <iomanip>
 
 using namespace std;
 
@@ -37,6 +38,18 @@ void readGraph(Graph& g, string fn) {
         cout << "Khong mo duoc file input!";
     }
 }
+Edge findMinEdge(const vector<Edge>& e) {
+    if (e.empty()) {
+        return { -1, -1, INT_MAX };
+    }
+    Edge minEdge = e[0];
+    for (int i = 1; i < e.size(); i++) {
+        if (minEdge.w > e[i].w) {
+            minEdge = e[i];
+        }
+    }
+    return minEdge;
+}
 
 void Prim(Graph& g) {
     visited[0] = true;
@@ -62,19 +75,6 @@ void Prim(Graph& g) {
         visited[minEdge.v] = true;
         nT++;
     }
-}
-
-Edge findMinEdge(const vector<Edge>& e) {
-    if (e.empty()) {
-        return { -1, -1, INT_MAX };
-    }
-    Edge minEdge = e[0];
-    for (int i = 1; i < e.size(); i++) {
-        if (minEdge.w > e[i].w) {
-            minEdge = e[i];
-        }
-    }
-    return minEdge;
 }
 
 Edge findMaxEdge(const vector<Edge>& e) {
@@ -109,6 +109,23 @@ void Max_Min_Edge(const vector<Edge>& e, ostream& os) {
     os << "Canh lon nhat: (" << maxEdge.u + 1 << "," << maxEdge.v + 1 << ") \n";
 }
 
+void drawGraph(const Graph& g, ostream& os) {
+    os << "Do thi cay khung nho nhat co ma tran la:\n";
+    vector<vector<int>> spanningMatrix(g.sodinh, vector<int>(g.sodinh, 0));
+
+    for (const auto& edge : g.T) {
+        spanningMatrix[edge.u][edge.v] = edge.w;
+        spanningMatrix[edge.v][edge.u] = edge.w; 
+    }
+
+    for (int i = 0; i < g.sodinh; i++) {
+        for (int j = 0; j < g.sodinh; j++) {
+            os << setw(4) << spanningMatrix[i][j];
+        }
+        os << "\n";
+    }
+}
+
 void printSpanningTree(Graph& g, string fn) {
     ofstream os(fn);
 
@@ -118,6 +135,7 @@ void printSpanningTree(Graph& g, string fn) {
         os << "Cac canh trong cay khung nho nhat:\n";
         Edges_in_Graph(g.T, os);
         Max_Min_Edge(g.T, os);
+        drawGraph(g, os);
         os.close();
     }
     else {
