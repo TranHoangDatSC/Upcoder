@@ -1,59 +1,79 @@
 #include <iostream>
-#include <vector>
+#include <cmath>
 using namespace std;
 
-int main()
-{
-    int n,k,x;
-    cin >> n >> k;
+const int MAX = 100;
+
+int binary_search(int arr[],int size,int key) {
+    int right = size - 1, left = 0;
     
-    vector<int> vt;
-    while(n--)
-    {
-        cin >> x;
-        vt.push_back(x);
-    }
-    
-    int save = -1;
-    for(int i = 0; i < vt.size(); i++)
-    {
-        if(vt[i] == k)
-        {
-            save = i;
-            break;
+    while(left <= right) {
+        int mid = (left + right)/2;
+        
+        if(arr[mid] == key) {
+            return mid;
+        }
+        else if(arr[mid] < key) {
+            left = mid + 1;
+        }
+        else if(arr[mid] > key) {
+            right = mid - 1;
         }
     }
-    
-    cout << save;
-    
-    return 0;
+    return -1;
 }
 
-/*
-#include <iostream>
-using namespace std;
-
-int linear_search(int arr[],int n,int x) {
-    int res = -1;
-    for(int i = 0; i < n; i++) {
-        if(arr[i] == x)
+int linear_search(int arr[],int size,int key) {
+    for(int i = 0; i < size; i++) {
+        if(arr[i] == key)
             return i;
     }
     return -1;
 }
 
-int main() {
-    int n,x;
-    int arr[100];
+int jump_search(int arr[],int size,int key) {
+    int block_size = (int)sqrt(size);
+    int start = 0;
+    int next = block_size;
     
-    cin >> n >> x;
-    
-    for(int i = 0; i < n; i++) {
-        cin >> arr[i];
+    while(start < size && key > arr[next - 1]) {
+        start = next;
+        next += block_size;
+        
+        if(next >= size) {
+            next = size;
+        }
     }
     
-    cout << linear_search(arr,n,x);
+    for(int i = 0; i < size; i++) {
+        if(arr[i] == key) {
+            return i;
+        }
+    }
+    return -1;
+}
 
+int array[MAX];
+int size, key;
+
+void input() {
+    cin >> size >> key;
+    for(int i = 0; i < size; i++) {
+        cin >> array[i];
+    }
+}
+
+void output() {
+    if(jump_search(array,size,key) != -1) {
+        for(int i = 0; i < size; i++)
+            if(array[i] == key) 
+                cout << i << " ";
+    }
+    else cout << -1;
+}
+
+int main() {
+    input();
+    output();
     return 0;
 }
-*/
