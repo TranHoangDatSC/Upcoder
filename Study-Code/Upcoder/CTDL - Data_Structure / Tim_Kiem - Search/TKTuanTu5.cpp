@@ -4,43 +4,42 @@ using namespace std;
 
 const int MAX = 100;
 
-int linear_search(int arr[],int size,int key) {
-    int max = -10e6;
-    for(int i = 0; i < size; i++) {
-        if(arr[i] > max && arr[i] <= key)
-            max = arr[i];
-    }
-    for(int i = 0; i < size; i++) {
-        if(arr[i] == max && max != -10e6)
+int linear_search(int arr[],int size,int key,int maxDev) {
+    int idx = -1;
+    int minDev = maxDev + 1;
+    
+    for(int i = 0;i < size;i++) {
+        if(arr[i] == key) {
             return i;
+        }
+        
+        int dev = abs(arr[i] - key);
+        if(dev <= maxDev) {
+            if(dev < minDev || (dev == minDev && (idx == -1 || i < idx))) {
+                minDev = dev;
+                idx = i;
+            }
+        }
     }
-    return -1;
+    
+    return idx;
 }
 
 int array[MAX];
-int size = 0;
+int size;
 int key;
+int maxDev;
 
 void input() {
-    cin >> key;
-    while(cin >> array[size])
-        size++;
+    cin >> size >> key >> maxDev;
+    
+    for(int i = 0;i < size;i++) {
+        cin >> array[i];
+    }
 }
 
 void output() {
-    if(linear_search(array,size,key) != -1) {
-        int max = -10e6;
-        for(int i = 0; i < size; i++) {
-            if(array[i] > max && array[i] <= key) {
-                max = array[i];
-            }
-        }
-        for(int i = 0; i < size; i++) {
-            if(array[i] == max && max != -10e6)
-                cout << i << " ";
-        }
-    }
-    else cout << -1;
+    cout << (linear_search(array,size,key,maxDev));
 }
 
 int main() {
