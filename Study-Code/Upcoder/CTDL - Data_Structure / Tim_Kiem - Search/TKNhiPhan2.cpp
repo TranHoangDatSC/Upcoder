@@ -1,44 +1,49 @@
 #include <iostream>
+#include <cmath>
 using namespace std;
 
-int binary_search(int arr[],int n,int x)
-{
-    int left = 0, right = n - 1;
+const int MAX = 100;
+
+int binary_search(int arr[],int size,int key) {
+    int right = size - 1, left = 0;
     
-    while(left <= right)
-    {
-        int m = (left + right) / 2;
+    while(left <= right) {
+        int mid = (left + right)/2;
         
-        if(arr[m] == x)
-            return m;
-        else if(arr[m] < x)
-            left = m + 1;
-        else 
-            right = m - 1;
+        if(arr[mid] == key) {
+            return mid;
+        }
+        else if(arr[mid] < key) {
+            left = mid + 1;
+        }
+        else if(arr[mid] > key) {
+            right = mid - 1;
+        }
     }
     return -1;
 }
 
-int main()
-{
-    int n, x;
-    cin >> n >> x;
-    
-    int arr[n];
-    for(int i = 0; i < n; i++)
-    {
-        cin >> arr[i];
+int array[MAX];
+int size, key;
+
+void input() {
+    cin >> size >> key;
+    for(int i = 0; i < size; i++) {
+        cin >> array[i];
     }
-    
-    if(binary_search(arr,n,x) != -1)
-    {
-        for(int i = 0; i < n; i++)
-        {
-            if(arr[i] == x) cout << i << " ";
-        }
+}
+
+void output() {
+    if(binary_search(array,size,key) != -1) {
+        for(int i = 0; i < size; i++)
+            if(array[i] == key) 
+                cout << i << " ";
     }
-    
     else cout << -1;
-    
+}
+
+int main() {
+    input();
+    output();
     return 0;
 }
