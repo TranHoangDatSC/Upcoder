@@ -28,7 +28,7 @@ void input() {
 }
 
 void output() {
-    cout << linear_search(array,size,key);
+    cout << (linear_search(array,size,key));
 }
 
 int main() {
