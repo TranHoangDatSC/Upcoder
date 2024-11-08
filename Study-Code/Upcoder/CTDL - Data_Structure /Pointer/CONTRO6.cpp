@@ -7,97 +7,97 @@ class LinkedList;
 template<class DataType>
 class Node {
     friend LinkedList<DataType>;
-    int data;
+    DataType data;
     Node<DataType>* pNext;
     Node(DataType value) : data(value), pNext(NULL) {}
 };
 
 template<class DataType>
 class LinkedList {
-    private:
-        Node<DataType>* pHead;
-        Node<DataType>* pTail;
-        int iSize;
-    public:
-        LinkedList() : iSize(0), pHead(NULL), pTail(NULL) {}
-        
-        void AddTail(DataType value) {
-            Node<DataType>* pAdd = new Node<DataType>(value);
-            
-            if(pHead == NULL) {
-                pHead = pTail = pAdd;
-            }
-            else {
-                pTail->pNext = pAdd;
-                pTail = pAdd;
-            }
-            iSize++;
+private:
+    Node<DataType>* pHead;
+    Node<DataType>* pTail;
+    int iSize;
+
+public:
+    LinkedList() : iSize(0), pHead(NULL), pTail(NULL) {}
+
+    void AddTail(DataType value) {
+        Node<DataType>* pAdd = new Node<DataType>(value);
+
+        if (pHead == NULL) {
+            pHead = pTail = pAdd;
+        } else {
+            pTail->pNext = pAdd;
+            pTail = pAdd;
         }
-        
-        int GetSize() {
-            iSize = 0;
-            Node<DataType>* tmp = pHead;
-            while(tmp != NULL) {
-                iSize++;
-                tmp = tmp->pNext;
-            }
-            return iSize;
+        iSize++;
+    }
+
+    int GetSize() {
+        return iSize;
+    }
+
+    void Display() {
+        if (GetSize() > 0) cout << GetSize() << endl;
+        else {
+            cout << -1;
         }
-        
-        void Display() {
-            if(GetSize() > 0) cout << GetSize() << endl;
-            else {
-                cout << -1;   
-            }
-            Node<DataType>* pWalker = pHead;
-            while(pWalker) {
-                cout << pWalker->data;
-                if(pWalker->pNext) cout << " ";
-                pWalker = pWalker->pNext;
-            }
-            cout << endl;
+        Node<DataType>* pWalker = pHead;
+        while (pWalker) {
+            cout << pWalker->data;
+            if (pWalker->pNext) cout << " ";
+            pWalker = pWalker->pNext;
         }
-        
-        void Check() {
-            LinkedList<DataType> res;
-            Node<DataType>* ptr1 = pHead;
-            int idx = 2;
-            
-            if(ptr1 == NULL || ptr1->pNext == NULL || ptr1->pNext->pNext == NULL)
-            {
-                cout << -1;
-                return;
-            }
-            
-            while(ptr1->pNext->pNext != NULL) {
-                Node<DataType>* ptr2 = ptr1->pNext->pNext;
-                Node<DataType>* ptr3 = ptr1->pNext;
-                
-                if(ptr1->data * ptr2->data == ptr3->data) {
-                    res.AddTail(idx);
-                }
-                ptr1 = ptr1->pNext;
-                idx++;
-            }
-            res.Display();
+        cout << endl;
+    }
+
+    void Check() {
+        LinkedList<DataType> res;
+        if (iSize < 3) {
+            cout << -1;
             return;
         }
+
+        Node<DataType>* ptr1 = pHead;
+        Node<DataType>* ptr2 = ptr1->pNext;
+        Node<DataType>* ptr3 = ptr2->pNext;
+        int idx = 2;
+
+        while (ptr3 != NULL) {
+            if (ptr1->data * ptr3->data == ptr2->data) {
+                res.AddTail(idx);
+            }
+            ptr1 = ptr1->pNext;
+            ptr2 = ptr2->pNext;
+            ptr3 = ptr3->pNext;
+            idx++;
+        }
+
+        if (res.GetSize() == 0) {
+            cout << -1;
+        } else {
+            res.Display();
+        }
+    }
 };
 
 int main() {
-    int n; cin >> n;
-    
+    int n;
+    cin >> n;
+
     LinkedList<int> list;
-    
-    while(n--) {
-        int tmp; 
+
+    while (n--) {
+        int tmp;
         cin >> tmp;
         list.AddTail(tmp);
     }
-    
+
     list.Check();
     return 0;
 }
+
 
 
 
